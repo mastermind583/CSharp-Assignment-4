@@ -1,4 +1,5 @@
-﻿using Library.TaskAppointmentManager.ViewModels;
+﻿using Library.TaskAppointmentManager.UWP.Dialogs;
+using Library.TaskAppointmentManager.ViewModels;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -31,23 +32,23 @@ namespace TaskAppointmentManager.UWP
 
         private async void AddNew_Click(object sender, RoutedEventArgs e)
         {
-            //var diag = new ItemDialog((DataContext as MainViewModel).SupportTickets);
-            //await diag.ShowAsync();
+            var diag = new ItemDialog((DataContext as MainViewModel).Items);
+            await diag.ShowAsync();
         }
 
         private void Delete_Click(object sender, RoutedEventArgs e)
         {
-            //(DataContext as MainViewModel).Remove();
+            (DataContext as MainViewModel).DeleteItem();
         }
 
         private async void Edit_Click(object sender, RoutedEventArgs e)
         {
-            //await (DataContext as MainViewModel).EditTicket();
+            await (DataContext as MainViewModel).EditItem();
         }
 
-        private void Search_Click(object sender, RoutedEventArgs e)
+        private async void Search_Click(object sender, RoutedEventArgs e)
         {
-            //(DataContext as MainViewModel).RefreshList();
+            await (DataContext as MainViewModel).Search();
         }
     }
 }

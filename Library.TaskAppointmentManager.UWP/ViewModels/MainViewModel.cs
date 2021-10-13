@@ -19,31 +19,23 @@ namespace Library.TaskAppointmentManager.ViewModels
         public Item SelectedItem { get; set; }
         public string Query { get; set; }
 
-        private string persistencePath;
-        private JsonSerializerSettings serializationSettings;
+        //private string persistencePath;
+        //private JsonSerializerSettings serializationSettings;
         public MainViewModel()
         {
             Items = new ObservableCollection<Item>();
-            persistencePath = Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData);
+            //persistencePath = Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData);
 
-            serializationSettings = new JsonSerializerSettings { TypeNameHandling = TypeNameHandling.All };
-            var myItems = JsonConvert.SerializeObject(this, serializationSettings);
-            File.WriteAllText($"{persistencePath}\\SaveData.txt", myItems);
-            var myItemDeserialized = JsonConvert.DeserializeObject<Item>(myItems, serializationSettings);
+            //serializationSettings = new JsonSerializerSettings { TypeNameHandling = TypeNameHandling.All };
+            //var myItems = JsonConvert.SerializeObject(this, serializationSettings);
+            //File.WriteAllText($"{persistencePath}\\SaveData.txt", myItems);
+            //var myItemDeserialized = JsonConvert.DeserializeObject<Item>(myItems, serializationSettings);
         }
 
         public event PropertyChangedEventHandler PropertyChanged;
         private void NotifyPropertyChanged([CallerMemberName] string propertyName = "")
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
-        }
-
-        public void AddItem()
-        {
-            if (SelectedItem == null)
-            {
-                Items.Add(new Item());
-            }
         }
 
         public void DeleteItem()
