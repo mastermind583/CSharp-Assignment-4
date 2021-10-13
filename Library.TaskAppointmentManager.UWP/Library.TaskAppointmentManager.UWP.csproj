@@ -120,7 +120,6 @@
     <RestoreProjectStyle>PackageReference</RestoreProjectStyle>
   </PropertyGroup>
   <ItemGroup>
-    <Compile Include="Class1.cs" />
     <Compile Include="Models\Appointment.cs" />
     <Compile Include="Models\Item.cs" />
     <Compile Include="Models\Task.cs" />
