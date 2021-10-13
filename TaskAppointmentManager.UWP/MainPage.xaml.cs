@@ -25,7 +25,7 @@ namespace TaskAppointmentManager.UWP
         public MainPage()
         {
             this.InitializeComponent();
-            //DataContext = new MainViewModel();
+            DataContext = new MainViewModel();
         }
 
         private async void AddNew_Click(object sender, RoutedEventArgs e)
