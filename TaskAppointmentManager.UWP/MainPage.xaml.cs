@@ -25,6 +25,28 @@ namespace TaskAppointmentManager.UWP
         public MainPage()
         {
             this.InitializeComponent();
+            //DataContext = new MainViewModel();
+        }
+
+        private async void AddNew_Click(object sender, RoutedEventArgs e)
+        {
+            //var diag = new ItemDialog((DataContext as MainViewModel).SupportTickets);
+            //await diag.ShowAsync();
+        }
+
+        private void Delete_Click(object sender, RoutedEventArgs e)
+        {
+            //(DataContext as MainViewModel).Remove();
+        }
+
+        private async void Edit_Click(object sender, RoutedEventArgs e)
+        {
+            //await (DataContext as MainViewModel).EditTicket();
+        }
+
+        private void Search_Click(object sender, RoutedEventArgs e)
+        {
+            //(DataContext as MainViewModel).RefreshList();
         }
     }
 }
