@@ -1,4 +1,5 @@
 ﻿using Library.TaskAppointmentManager.Models;
+using Library.TaskAppointmentManager.UWP.Dialogs;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
@@ -53,14 +54,14 @@ namespace Library.TaskAppointmentManager.ViewModels
             }
         }
 
-        public async Task EditItem()
+        public async System.Threading.Tasks.Task EditItem()
         {
             var diag = new ItemDialog(Items, SelectedItem);
             NotifyPropertyChanged("SelectedItem");
             await diag.ShowAsync();
         }
 
-        public async Task Search()
+        public async System.Threading.Tasks.Task Search()
         {
             Console.WriteLine(Query);
         }
