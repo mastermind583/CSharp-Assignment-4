@@ -11,10 +11,13 @@ namespace Library.TaskAppointmentManager.ViewModels
     {
         public List<Item> Items { get; set; }
         public Item SelectedItem { get; set; }
+        public string Query { get; set; }
+        private string persistencePath;
 
         public MainViewModel()
         {
             Items = new List<Item>();
+            persistencePath = Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData);
         }
 
         public void AddItem()
