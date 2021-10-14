@@ -20,32 +20,32 @@ namespace Library.TaskAppointmentManager.UWP.Dialogs
 {
     public sealed partial class ItemDialog : ContentDialog
     {
-        private IList<Item> itemList;
-        public ItemDialog(IList<Item> itemlist)
+        private IList<Task> taskList;
+        public ItemDialog(IList<Task> itemlist)
         {
             InitializeComponent();
-            DataContext = new Item();
-            this.itemList = itemlist;
+            DataContext = new Task();
+            this.taskList = itemlist;
         }
 
-        public ItemDialog(IList<Item> itemlist, Item item)
+        public ItemDialog(IList<Task> taskList, Task item)
         {
             InitializeComponent();
             DataContext = item;
-            this.itemList = itemlist;
+            this.taskList = taskList;
         }
 
         private void ContentDialog_PrimaryButtonClick(ContentDialog sender, ContentDialogButtonClickEventArgs args)
         {
-            var itemToEdit = DataContext as Item;
-            var i = itemList.IndexOf(itemToEdit);
+            var itemToEdit = DataContext as Task;
+            var i = taskList.IndexOf(itemToEdit);
             if (i >= 0)
             {
-                itemList.Remove(itemToEdit);
-                itemList.Insert(i, itemToEdit);
+                taskList.Remove(itemToEdit);
+                taskList.Insert(i, itemToEdit);
             }
             else
-                itemList.Add(itemToEdit);
+                taskList.Add(itemToEdit);
         }
 
         private void ContentDialog_SecondaryButtonClick(ContentDialog sender, ContentDialogButtonClickEventArgs args)

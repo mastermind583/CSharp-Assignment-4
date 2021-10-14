@@ -17,7 +17,7 @@
             <RowDefinition Height="1*"/>
             <RowDefinition Height="5*"/>
         </Grid.RowDefinitions>
-        <TextBox Grid.Row="0" Header="Title" Text="{Binding Path=Title, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"></TextBox>
+        <TextBox Grid.Row="0" Header="Name" Text="{Binding Path=Name, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"></TextBox>
         <TextBox Grid.Row="1" Header="Description" TextWrapping="Wrap" AcceptsReturn="True" Text="{Binding Path=Description, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"></TextBox>
     </Grid>
 </ContentDialog>

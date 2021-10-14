@@ -15,15 +15,15 @@ namespace Library.TaskAppointmentManager.ViewModels
 { 
     public class MainViewModel: INotifyPropertyChanged
     {
-        public ObservableCollection<Item> Items { get; set; }
-        public Item SelectedItem { get; set; }
+        public ObservableCollection<Models.Task> Items { get; set; }
+        public Models.Task SelectedItem { get; set; }
         public string Query { get; set; }
 
         //private string persistencePath;
         //private JsonSerializerSettings serializationSettings;
         public MainViewModel()
         {
-            Items = new ObservableCollection<Item>();
+            Items = new ObservableCollection<Models.Task>();
             //persistencePath = Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData);
 
             //serializationSettings = new JsonSerializerSettings { TypeNameHandling = TypeNameHandling.All };
