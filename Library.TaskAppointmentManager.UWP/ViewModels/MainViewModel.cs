@@ -16,6 +16,9 @@ namespace Library.TaskAppointmentManager.ViewModels
     public class MainViewModel: INotifyPropertyChanged
     {
         public ObservableCollection<Models.Task> Items { get; set; }
+
+        //temporary list just for searching?
+        //public ObservableCollection<Models.Task> SearchItems { get; set; }
         public Models.Task SelectedItem { get; set; }
         public string Query { get; set; }
 
@@ -58,9 +61,8 @@ namespace Library.TaskAppointmentManager.ViewModels
 
         public async System.Threading.Tasks.Task Search()
         {
-            var searchList = Items.Where(i => i.Name.Contains(Query) || i.Description.Contains(Query));
-            foreach (var x in searchList)
-                Console.WriteLine(Query);
+            var searchList = Items.Where(i => i.Name.Contains(Query) || i.Description.Contains(Query));    
+            Console.WriteLine(Query);
         }
     }
 }
