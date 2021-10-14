@@ -48,14 +48,19 @@ namespace Library.TaskAppointmentManager.ViewModels
 
         public async System.Threading.Tasks.Task EditItem()
         {
-            var diag = new ItemDialog(Items, SelectedItem);
-            NotifyPropertyChanged("SelectedItem");
-            await diag.ShowAsync();
+            if (SelectedItem != null)
+            {
+                var diag = new ItemDialog(Items, SelectedItem);
+                NotifyPropertyChanged("SelectedItem");
+                await diag.ShowAsync();
+            }
         }
 
         public async System.Threading.Tasks.Task Search()
         {
-            Console.WriteLine(Query);
+            var searchList = Items.Where(i => i.Name.Contains(Query) || i.Description.Contains(Query));
+            foreach (var x in searchList)
+                Console.WriteLine(Query);
         }
     }
 }
