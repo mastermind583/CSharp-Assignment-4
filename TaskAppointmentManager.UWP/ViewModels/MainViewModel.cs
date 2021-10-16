@@ -1,5 +1,5 @@
 ﻿using Library.TaskAppointmentManager.Models;
-using Library.TaskAppointmentManager.UWP.Dialogs;
+using TaskAppointmentManager.UWP.Dialogs;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
@@ -11,7 +11,7 @@ using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Library.TaskAppointmentManager.ViewModels
+namespace TaskAppointmentManager.ViewModels
 { 
     public class MainViewModel: INotifyPropertyChanged
     {

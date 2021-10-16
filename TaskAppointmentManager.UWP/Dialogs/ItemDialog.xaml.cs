@@ -1,4 +1,5 @@
 ﻿using Library.TaskAppointmentManager.Models;
+using TaskAppointmentManager.UWP.ViewModels;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -16,7 +17,7 @@ using Windows.UI.Xaml.Navigation;
 
 // The Content Dialog item template is documented at https://go.microsoft.com/fwlink/?LinkId=234238
 
-namespace Library.TaskAppointmentManager.UWP.Dialogs
+namespace TaskAppointmentManager.UWP.Dialogs
 {
     public sealed partial class ItemDialog : ContentDialog
     {
@@ -24,14 +25,14 @@ namespace Library.TaskAppointmentManager.UWP.Dialogs
         public ItemDialog(IList<Item> itemlist)
         {
             InitializeComponent();
-            DataContext = new Item();
+            DataContext = new ItemDialogViewModel();
             this.itemList = itemlist;
         }
 
         public ItemDialog(IList<Item> itemList, Item item)
         {
             InitializeComponent();
-            DataContext = item;
+            DataContext = new ItemDialogViewModel(item);
             this.itemList = itemList;
         }
 

@@ -1,5 +1,5 @@
-﻿using Library.TaskAppointmentManager.UWP.Dialogs;
-using Library.TaskAppointmentManager.ViewModels;
+﻿using TaskAppointmentManager.UWP.Dialogs;
+using TaskAppointmentManager.ViewModels;
 using System;
 using System.Collections.Generic;
 using System.IO;

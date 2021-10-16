@@ -8,7 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Windows.UI.Xaml;
 
-namespace HelpDesk.UWP.ViewModels
+namespace TaskAppointmentManager.UWP.ViewModels
 {
     public class ItemDialogViewModel : INotifyPropertyChanged
     {
