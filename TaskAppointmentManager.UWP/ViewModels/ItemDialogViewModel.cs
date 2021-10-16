@@ -49,17 +49,14 @@ namespace TaskAppointmentManager.UWP.ViewModels
                 {
                     itemType = value;
                     if (value.Equals("Task", StringComparison.InvariantCultureIgnoreCase))
-                    {
                         BackingItem = new Library.TaskAppointmentManager.Models.Task();
-                    }
+
                     else if (value.Equals("Appointment", StringComparison.InvariantCultureIgnoreCase))
-                    {
                         BackingItem = new Appointment();
-                    }
+
                     else
-                    {
                         BackingItem = null;
-                    }
+
                     NotifyPropertyChanged();
                     NotifyPropertyChanged("ShowTask");
                     NotifyPropertyChanged("ShowAppointment");
