@@ -24,6 +24,7 @@
             <x:String>Task</x:String>
             <x:String>Appointment</x:String>
         </controls:RadioButtons>
+        
         <TextBox Grid.Row="1" Header="Title" Text="{Binding Path=Name, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"></TextBox>
         <TextBox Grid.Row="2" Header="Description" TextWrapping="Wrap" AcceptsReturn="True" Text="{Binding Path=Description, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"></TextBox>
 
