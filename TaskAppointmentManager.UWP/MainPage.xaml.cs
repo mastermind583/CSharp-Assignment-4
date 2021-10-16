@@ -46,9 +46,9 @@ namespace TaskAppointmentManager.UWP
             await (DataContext as MainViewModel).EditItem();
         }
 
-        private async void Search_Click(object sender, RoutedEventArgs e)
+        private void Search_Click(object sender, RoutedEventArgs e)
         {
-            await (DataContext as MainViewModel).Search();
+            (DataContext as MainViewModel).RefreshList();
         }
     }
 }

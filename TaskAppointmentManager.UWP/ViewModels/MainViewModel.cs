@@ -15,18 +15,34 @@ namespace Library.TaskAppointmentManager.ViewModels
 { 
     public class MainViewModel: INotifyPropertyChanged
     {
-        public ObservableCollection<Models.Task> Items { get; set; }
-
-        //temporary list just for searching?
-        //public ObservableCollection<Models.Task> SearchItems { get; set; }
-        public Models.Task SelectedItem { get; set; }
+        public ObservableCollection<Item> Items { get; set; }
+        public Item SelectedItem { get; set; }
+        private ObservableCollection<Item> filteredItems;
+        public ObservableCollection<Item> FilteredItems
+        {
+            get
+            {
+                if (string.IsNullOrWhiteSpace(Query))
+                {
+                    return Items;
+                }
+                else
+                {
+                    //CHECK! search for attendees too?
+                    filteredItems = new ObservableCollection<Item>(Items
+                        .Where(s => s.Description.ToUpper().Contains(Query.ToUpper())
+                        || s.Name.ToUpper().Contains(Query.ToUpper())).ToList());
+                    return filteredItems;
+                }
+            }
+        }
         public string Query { get; set; }
 
         //private string persistencePath;
         //private JsonSerializerSettings serializationSettings;
         public MainViewModel()
         {
-            Items = new ObservableCollection<Models.Task>();
+            Items = new ObservableCollection<Item>();
             //persistencePath = Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData);
 
             //serializationSettings = new JsonSerializerSettings { TypeNameHandling = TypeNameHandling.All };
@@ -59,10 +75,9 @@ namespace Library.TaskAppointmentManager.ViewModels
             }
         }
 
-        public async System.Threading.Tasks.Task Search()
+        public void RefreshList()
         {
-            var searchList = Items.Where(i => i.Name.Contains(Query) || i.Description.Contains(Query));    
-            Console.WriteLine(Query);
+            NotifyPropertyChanged("FilteredTickets");
         }
     }
 }
