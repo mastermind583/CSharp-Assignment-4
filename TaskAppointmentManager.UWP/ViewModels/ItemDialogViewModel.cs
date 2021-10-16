@@ -76,13 +76,9 @@ namespace TaskAppointmentManager.UWP.ViewModels
         {
             BackingItem = item;
             if (BackingItem is Library.TaskAppointmentManager.Models.Task)
-            {
                 ItemType = "Task";
-            }
             else if (BackingItem is Appointment)
-            {
                 ItemType = "Appointment";
-            }
         }
 
         public event PropertyChangedEventHandler PropertyChanged;

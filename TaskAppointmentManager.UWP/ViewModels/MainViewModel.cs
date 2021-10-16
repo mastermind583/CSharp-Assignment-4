@@ -11,7 +11,7 @@ using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace TaskAppointmentManager.ViewModels
+namespace TaskAppointmentManager.UWP.ViewModels
 { 
     public class MainViewModel: INotifyPropertyChanged
     {
