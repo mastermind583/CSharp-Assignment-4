@@ -20,20 +20,20 @@
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
-        <controls:RadioButtons Grid.Row="0" SelectedIndex="1" MaxColumns="3" Header="Item Type" SelectedItem="{Binding Path=ItemType, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
+        <controls:RadioButtons Grid.Row="0" SelectedIndex="0" MaxColumns="3" Header="Item Type" SelectedItem="{Binding Path=ItemType, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
             <x:String>Task</x:String>
             <x:String>Appointment</x:String>
         </controls:RadioButtons>
         
-        <TextBox Grid.Row="1" Header="Title" Text="{Binding Path=Name, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"></TextBox>
-        <TextBox Grid.Row="2" Header="Description" TextWrapping="Wrap" AcceptsReturn="True" Text="{Binding Path=Description, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"></TextBox>
+        <TextBox Grid.Row="1" Header="Title" Text="{Binding Path=BackingItem.Name, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"></TextBox>
+        <TextBox Grid.Row="2" Header="Description" TextWrapping="Wrap" AcceptsReturn="True" Text="{Binding Path=BackingItem.Description, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"></TextBox>
 
         <Grid Grid.Row="3" Visibility="{Binding Path=ShowTask, UpdateSourceTrigger=PropertyChanged}">
-            <TextBlock>Task</TextBlock>
+            <!--<TextBlock>Task</TextBlock>-->
         </Grid>
 
         <Grid Grid.Row="3" Visibility="{Binding Path=ShowAppointment, UpdateSourceTrigger=PropertyChanged}">
-            <TextBlock>Appointment</TextBlock>
+            <!--<TextBlock>Appointment</TextBlock>-->
         </Grid>
     </Grid>
 </ContentDialog>

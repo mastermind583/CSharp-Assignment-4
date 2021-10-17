@@ -28,10 +28,11 @@ namespace TaskAppointmentManager.UWP.ViewModels
                 }
                 else
                 {
-                    //CHECK! search for attendees too?
                     filteredItems = new ObservableCollection<Item>(Items
-                        .Where(s => s.Description.ToUpper().Contains(Query.ToUpper())
-                        || s.Name.ToUpper().Contains(Query.ToUpper())).ToList());
+                        .Where(s => s.Description.ToUpper().Contains(Query.ToUpper()) ||
+                        s.Name.ToUpper().Contains(Query.ToUpper()) ||
+                        ((s is Appointment) && (s as Appointment).Attendees.Any(a => a.ToUpper().Contains(Query.ToUpper()))
+                        )).ToList());
                     return filteredItems;
                 }
             }
@@ -77,7 +78,7 @@ namespace TaskAppointmentManager.UWP.ViewModels
 
         public void RefreshList()
         {
-            NotifyPropertyChanged("FilteredTickets");
+            NotifyPropertyChanged("FilteredItems");
         }
     }
 }
