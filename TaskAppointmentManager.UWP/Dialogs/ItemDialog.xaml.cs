@@ -28,14 +28,6 @@ namespace TaskAppointmentManager.UWP.Dialogs
         private void ContentDialog_PrimaryButtonClick(ContentDialog sender, ContentDialogButtonClickEventArgs args)
         {            
             var itemToEdit = (DataContext as ItemDialogViewModel).BackingItem;
-            if (itemToEdit is Task) 
-            {
-                Console.WriteLine(itemToEdit.Name + "is a task");
-            }
-            else if (itemToEdit is Appointment)
-            {
-                Console.WriteLine(itemToEdit.Name + "is an appointment");
-            }
                 
             var i = itemList.IndexOf(itemToEdit);
             if (i >= 0)
