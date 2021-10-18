@@ -6,6 +6,9 @@ using Windows.UI.Xaml.Controls;
 
 // The Content Dialog item template is documented at https://go.microsoft.com/fwlink/?LinkId=234238
 
+//Date time stuff, oct 18th lecture
+//Might have to change item.cs id stuff
+
 namespace TaskAppointmentManager.UWP.Dialogs
 {
     public sealed partial class ItemDialog : ContentDialog
@@ -27,7 +30,7 @@ namespace TaskAppointmentManager.UWP.Dialogs
 
         private void ContentDialog_PrimaryButtonClick(ContentDialog sender, ContentDialogButtonClickEventArgs args)
         {            
-            var itemToEdit = (DataContext as ItemDialogViewModel).BackingItem;
+            var itemToEdit = (DataContext as ItemDialogViewModel)?.BackingItem;
                 
             var i = itemList.IndexOf(itemToEdit);
             if (i >= 0)

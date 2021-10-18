@@ -29,11 +29,11 @@
         <TextBox Grid.Row="2" Header="Description" TextWrapping="Wrap" AcceptsReturn="True" Text="{Binding Path=BackingItem.Description, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"></TextBox>
 
         <Grid Grid.Row="3" Visibility="{Binding Path=ShowTask, UpdateSourceTrigger=PropertyChanged}">
-            <!--<TextBlock>Task</TextBlock>-->
+            <TextBlock>Task</TextBlock>
         </Grid>
 
         <Grid Grid.Row="3" Visibility="{Binding Path=ShowAppointment, UpdateSourceTrigger=PropertyChanged}">
-            <!--<TextBlock>Appointment</TextBlock>-->
+            <TextBlock>Appointment</TextBlock>
         </Grid>
     </Grid>
 </ContentDialog>
