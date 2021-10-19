@@ -45,6 +45,9 @@ namespace TaskAppointmentManager.UWP.ViewModels
             }
             set
             {
+                if (BackingItem != null && BackingItem.Id > 0)
+                    return;
+
                 if (value != null && !value.Equals(itemType, StringComparison.InvariantCultureIgnoreCase))
                 {
                     itemType = value;
@@ -58,6 +61,7 @@ namespace TaskAppointmentManager.UWP.ViewModels
                         BackingItem = null;
 
                     NotifyPropertyChanged();
+                    NotifyPropertyChanged("BackingItem");
                     NotifyPropertyChanged("ShowTask");
                     NotifyPropertyChanged("ShowAppointment");
                 }
