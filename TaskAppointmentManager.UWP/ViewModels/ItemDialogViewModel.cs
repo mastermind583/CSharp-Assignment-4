@@ -58,6 +58,7 @@ namespace TaskAppointmentManager.UWP.ViewModels
                 if (BackingItem is Library.TaskAppointmentManager.Models.Task)
                 {
                     (BackingItem as Library.TaskAppointmentManager.Models.Task).Deadline = boundDate.Date;
+                    NotifyPropertyChanged("BackingItem");
                 }
             }
         }
@@ -88,15 +89,14 @@ namespace TaskAppointmentManager.UWP.ViewModels
                         (BackingItem as Library.TaskAppointmentManager.Models.Task).Deadline = boundDate.Date;
                     }
 
-                else if (value.Equals("Appointment", StringComparison.InvariantCultureIgnoreCase))
-                    BackingItem = new Appointment();
+                    else if (value.Equals("Appointment", StringComparison.InvariantCultureIgnoreCase))
+                        BackingItem = new Appointment();
 
-                else
-                    BackingItem = null;
+                    else
+                        BackingItem = null;
 
                     NotifyPropertyChanged();
                     NotifyPropertyChanged("BackingItem");
-                    NotifyPropertyChanged("BoundDate");
                     NotifyPropertyChanged("ShowTask");
                     NotifyPropertyChanged("ShowAppointment");
                 }

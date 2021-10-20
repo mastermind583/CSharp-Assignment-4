@@ -7,7 +7,7 @@ namespace Library.TaskAppointmentManager.Models
     public class Item
     {
         private static int currentId = 1;
-        public int id;
+        private int id;
 
         //set ID to 0 so that it can be set
         public Item()

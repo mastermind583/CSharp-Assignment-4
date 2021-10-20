@@ -29,7 +29,7 @@
         
         <TextBox Grid.Row="1" Header="Title" Text="{Binding Path=BackingItem.Name, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"></TextBox>
         <TextBox Grid.Row="2" Header="Description" TextWrapping="Wrap" AcceptsReturn="True" Text="{Binding Path=BackingItem.Description, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"></TextBox>
-        <ComboBox Grid.Row="3" Header="Priority" SelectedValue="{Binding Path=BackingItem.Priority, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
+        <ComboBox Grid.Row="3" Header="Priority" SelectedValue="{Binding Path=BackingItem.Priority, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" SelectedIndex="0">
             <x:Int32>1</x:Int32>
             <x:Int32>2</x:Int32>
             <x:Int32>3</x:Int32>
