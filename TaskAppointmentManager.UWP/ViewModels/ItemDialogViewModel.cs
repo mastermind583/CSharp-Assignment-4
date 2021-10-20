@@ -34,6 +34,34 @@ namespace TaskAppointmentManager.UWP.ViewModels
             }
         }
 
+        public bool IsClickable
+        {
+            get
+            {
+                if (BackingItem != null && BackingItem.Id > 0)
+                    return false;
+                else
+                    return true;
+            }
+        }
+
+        private DateTimeOffset boundDate;
+        public DateTimeOffset BoundDate
+        {
+            get
+            {
+                return boundDate;
+            }
+            set
+            {
+                boundDate = value;
+                if (BackingItem is Library.TaskAppointmentManager.Models.Task)
+                {
+                    (BackingItem as Library.TaskAppointmentManager.Models.Task).Deadline = boundDate.Date;
+                }
+            }
+        }
+
         public Item BackingItem { get; set; }
 
         private string itemType;
@@ -46,22 +74,29 @@ namespace TaskAppointmentManager.UWP.ViewModels
             set
             {
                 if (BackingItem != null && BackingItem.Id > 0)
+                {
+                    NotifyPropertyChanged("IsClickable");
                     return;
+                }
 
                 if (value != null && !value.Equals(itemType, StringComparison.InvariantCultureIgnoreCase))
                 {
                     itemType = value;
                     if (value.Equals("Task", StringComparison.InvariantCultureIgnoreCase))
+                    { 
                         BackingItem = new Library.TaskAppointmentManager.Models.Task();
+                        (BackingItem as Library.TaskAppointmentManager.Models.Task).Deadline = boundDate.Date;
+                    }
 
-                    else if (value.Equals("Appointment", StringComparison.InvariantCultureIgnoreCase))
-                        BackingItem = new Appointment();
+                else if (value.Equals("Appointment", StringComparison.InvariantCultureIgnoreCase))
+                    BackingItem = new Appointment();
 
-                    else
-                        BackingItem = null;
+                else
+                    BackingItem = null;
 
                     NotifyPropertyChanged();
                     NotifyPropertyChanged("BackingItem");
+                    NotifyPropertyChanged("BoundDate");
                     NotifyPropertyChanged("ShowTask");
                     NotifyPropertyChanged("ShowAppointment");
                 }
@@ -71,6 +106,7 @@ namespace TaskAppointmentManager.UWP.ViewModels
         public ItemDialogViewModel()
         {
             ItemType = null;
+            BoundDate = DateTime.Now;
         }
 
         public ItemDialogViewModel(Item item)

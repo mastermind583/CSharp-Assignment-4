@@ -5,7 +5,8 @@
     xmlns:local="using:TaskAppointmentManager.UWP.Dialogs"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    xmlns:controls="using:Microsoft.UI.Xaml.Controls"
+    xmlns:controls="using:Microsoft.UI.Xaml.Controls" 
+    xmlns:viewmodels="using:TaskAppointmentManager.UWP.ViewModels" d:DataContext="{d:DesignInstance Type=viewmodels:ItemDialogViewModel}"
     mc:Ignorable="d"
     Title="New Item"
     PrimaryButtonText="Ok"
@@ -19,21 +20,33 @@
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
-        <controls:RadioButtons Grid.Row="0" SelectedIndex="0" MaxColumns="3" Header="Item Type" SelectedItem="{Binding Path=ItemType, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
+        <controls:RadioButtons IsHitTestVisible="{Binding Path=IsClickable, UpdateSourceTrigger=PropertyChanged}" Grid.Row="0" SelectedIndex="0" MaxColumns="2" Header="Item Type" SelectedItem="{Binding Path=ItemType, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
             <x:String>Task</x:String>
             <x:String>Appointment</x:String>
         </controls:RadioButtons>
         
         <TextBox Grid.Row="1" Header="Title" Text="{Binding Path=BackingItem.Name, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"></TextBox>
         <TextBox Grid.Row="2" Header="Description" TextWrapping="Wrap" AcceptsReturn="True" Text="{Binding Path=BackingItem.Description, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"></TextBox>
+        <ComboBox Grid.Row="3" Header="Priority" SelectedValue="{Binding Path=BackingItem.Priority, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
+            <x:Int32>1</x:Int32>
+            <x:Int32>2</x:Int32>
+            <x:Int32>3</x:Int32>
+            <x:Int32>4</x:Int32>
+            <x:Int32>5</x:Int32>
+            <x:Int32>6</x:Int32>
+            <x:Int32>7</x:Int32>
+            <x:Int32>8</x:Int32>
+            <x:Int32>9</x:Int32>
+            <x:Int32>10</x:Int32>
+        </ComboBox>
 
-        <Grid Grid.Row="3" Visibility="{Binding Path=ShowTask, UpdateSourceTrigger=PropertyChanged}">
-            <TextBlock>Task</TextBlock>
+        <Grid Grid.Row="4" Visibility="{Binding Path=ShowTask, UpdateSourceTrigger=PropertyChanged}">
+            <DatePicker Header="Deadline" SelectedDate="{Binding Path=BoundDate, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
         </Grid>
 
-        <Grid Grid.Row="3" Visibility="{Binding Path=ShowAppointment, UpdateSourceTrigger=PropertyChanged}">
-            <TextBlock>Appointment</TextBlock>
+        <Grid Grid.Row="4" Visibility="{Binding Path=ShowAppointment, UpdateSourceTrigger=PropertyChanged}">
         </Grid>
     </Grid>
 </ContentDialog>
