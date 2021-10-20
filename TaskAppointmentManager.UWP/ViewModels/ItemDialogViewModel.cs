@@ -63,6 +63,24 @@ namespace TaskAppointmentManager.UWP.ViewModels
             }
         }
 
+        private bool istaskCompleted;
+        public bool IsTaskCompleted
+        {
+            get
+            {
+                return istaskCompleted;
+            }
+            set
+            {
+                istaskCompleted = value;
+                if (BackingItem is Library.TaskAppointmentManager.Models.Task)
+                {
+                    (BackingItem as Library.TaskAppointmentManager.Models.Task).IsCompleted = istaskCompleted;
+                    NotifyPropertyChanged("BackingItem");
+                }
+            }
+        }
+
         public Item BackingItem { get; set; }
 
         private string itemType;
@@ -87,6 +105,7 @@ namespace TaskAppointmentManager.UWP.ViewModels
                     { 
                         BackingItem = new Library.TaskAppointmentManager.Models.Task();
                         (BackingItem as Library.TaskAppointmentManager.Models.Task).Deadline = boundDate.Date;
+                        (BackingItem as Library.TaskAppointmentManager.Models.Task).IsCompleted = istaskCompleted;
                     }
 
                     else if (value.Equals("Appointment", StringComparison.InvariantCultureIgnoreCase))

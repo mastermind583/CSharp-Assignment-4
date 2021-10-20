@@ -21,6 +21,8 @@
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            
         </Grid.RowDefinitions>
         <controls:RadioButtons IsHitTestVisible="{Binding Path=IsClickable, UpdateSourceTrigger=PropertyChanged}" Grid.Row="0" SelectedIndex="0" MaxColumns="2" Header="Item Type" SelectedItem="{Binding Path=ItemType, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
             <x:String>Task</x:String>
@@ -43,10 +45,14 @@
         </ComboBox>
 
         <Grid Grid.Row="4" Visibility="{Binding Path=ShowTask, UpdateSourceTrigger=PropertyChanged}">
-            <DatePicker Header="Deadline" SelectedDate="{Binding Path=BoundDate, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+            </Grid.RowDefinitions>
+            <DatePicker Grid.Row="0" Header="Deadline" SelectedDate="{Binding Path=BoundDate, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+            <CheckBox Grid.Row="1" Content ="Is the task completed?" IsChecked="{Binding Path=IsTaskCompleted, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
         </Grid>
-
-        <Grid Grid.Row="4" Visibility="{Binding Path=ShowAppointment, UpdateSourceTrigger=PropertyChanged}">
+        <Grid Grid.Row="4" Visibility="{Binding Path=ShowAppointment, UpdateSourceTrigger=PropertyChanged}" Margin="0,0,0,-8" Grid.RowSpan="2">
         </Grid>
     </Grid>
 </ContentDialog>

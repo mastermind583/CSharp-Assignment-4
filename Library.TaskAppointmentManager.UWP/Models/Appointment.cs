@@ -13,8 +13,6 @@ namespace Library.TaskAppointmentManager.Models
         public DateTime Start { get; set; }
         public DateTime End { get; set; }
         public List<string> Attendees { get; set; }
-
-        
         public override string ToString()
         {
             string attendees = null;
