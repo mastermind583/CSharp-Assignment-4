@@ -50,5 +50,11 @@ namespace TaskAppointmentManager.UWP
         {
             (DataContext as MainViewModel).RefreshList();
         }
+
+        private async void Save_Load_Click(object sender, RoutedEventArgs e)
+        {
+            var diag = new SaveLoad((DataContext as MainViewModel).Items);
+            await diag.ShowAsync();
+        }
     }
 }

@@ -60,7 +60,6 @@ namespace TaskAppointmentManager.UWP.ViewModels
                     (BackingItem as Library.TaskAppointmentManager.Models.Task).Deadline = taskDeadline.Date;
                     NotifyPropertyChanged("BackingItem");
                 }
-                //NotifyPropertyChanged("TaskDeadline");
             }
         }
         private DateTimeOffset appointmentStart;
