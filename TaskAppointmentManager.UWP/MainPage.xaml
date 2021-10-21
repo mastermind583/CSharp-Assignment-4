@@ -32,7 +32,7 @@
             
         </StackPanel>
         <ListBox Grid.Row="1" ItemsSource="{Binding Path=FilteredItems, UpdateSourceTrigger=PropertyChanged}" SelectedItem="{Binding Path=SelectedItem, Mode=TwoWay}"
-                   IsDoubleTapEnabled="True" ScrollViewer.VerticalScrollBarVisibility="Visible"></ListBox>
+                   ScrollViewer.VerticalScrollBarVisibility="Visible"></ListBox>
         <Grid Grid.Row="2">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition/>
