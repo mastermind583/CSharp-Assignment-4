@@ -29,9 +29,20 @@ namespace TaskAppointmentManager.UWP.Dialogs
         }
 
         private void ContentDialog_PrimaryButtonClick(ContentDialog sender, ContentDialogButtonClickEventArgs args)
-        {            
+        {
             var itemToEdit = (DataContext as ItemDialogViewModel)?.BackingItem;
-            
+
+            //Converts the string of words to list items
+            if (itemToEdit is Appointment && (DataContext as ItemDialogViewModel)?.AppointmentAttendees != null)
+            {
+                string[] words = (DataContext as ItemDialogViewModel)?.AppointmentAttendees.Split(',');
+                foreach (var word in words)
+                {
+                    string s = word.Trim();
+                    (itemToEdit as Appointment).Attendees.Add(s);
+                }
+            }
+
             //sets the id to currentId++ if it is a new ID
             if (itemToEdit.Id == 0)
             {

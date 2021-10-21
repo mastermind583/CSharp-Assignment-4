@@ -45,23 +45,61 @@ namespace TaskAppointmentManager.UWP.ViewModels
             }
         }
 
-        private DateTimeOffset boundDate;
-        public DateTimeOffset BoundDate
+        private DateTimeOffset taskDeadline;
+        public DateTimeOffset TaskDeadline
         {
             get
             {
-                return boundDate;
+                return taskDeadline;
             }
             set
             {
-                boundDate = value;
+                taskDeadline = value;
                 if (BackingItem is Library.TaskAppointmentManager.Models.Task)
                 {
-                    (BackingItem as Library.TaskAppointmentManager.Models.Task).Deadline = boundDate.Date;
+                    (BackingItem as Library.TaskAppointmentManager.Models.Task).Deadline = taskDeadline.Date;
+                    NotifyPropertyChanged("BackingItem");
+                }
+                //NotifyPropertyChanged("TaskDeadline");
+            }
+        }
+        private DateTimeOffset appointmentStart;
+        public DateTimeOffset AppointmentStart
+        {
+            get
+            {
+                return appointmentStart;
+            }
+            set
+            {
+                appointmentStart = value;
+                if (BackingItem is Appointment)
+                {
+                    (BackingItem as Appointment).Start = appointmentStart.Date;
                     NotifyPropertyChanged("BackingItem");
                 }
             }
         }
+
+        private DateTimeOffset appointmentEnd;
+        public DateTimeOffset AppointmentEnd
+        {
+            get
+            {
+                return appointmentEnd;
+            }
+            set
+            {
+                appointmentEnd = value;
+                if (BackingItem is Appointment)
+                {
+                    (BackingItem as Appointment).End = appointmentEnd.Date;
+                    NotifyPropertyChanged("BackingItem");
+                }
+            }
+        }
+
+        public string AppointmentAttendees { get; set; }
 
         private bool istaskCompleted;
         public bool IsTaskCompleted
@@ -80,6 +118,7 @@ namespace TaskAppointmentManager.UWP.ViewModels
                 }
             }
         }
+
 
         public Item BackingItem { get; set; }
 
@@ -102,14 +141,20 @@ namespace TaskAppointmentManager.UWP.ViewModels
                 {
                     itemType = value;
                     if (value.Equals("Task", StringComparison.InvariantCultureIgnoreCase))
-                    { 
+                    {
                         BackingItem = new Library.TaskAppointmentManager.Models.Task();
-                        (BackingItem as Library.TaskAppointmentManager.Models.Task).Deadline = boundDate.Date;
+                        (BackingItem as Library.TaskAppointmentManager.Models.Task).Deadline = taskDeadline.Date;
                         (BackingItem as Library.TaskAppointmentManager.Models.Task).IsCompleted = istaskCompleted;
+                        BackingItem.Priority = 1;
                     }
 
                     else if (value.Equals("Appointment", StringComparison.InvariantCultureIgnoreCase))
+                    {
                         BackingItem = new Appointment();
+                        (BackingItem as Appointment).Start = appointmentStart.Date;
+                        (BackingItem as Appointment).End = appointmentEnd.Date;
+                        BackingItem.Priority = 1;
+                    }
 
                     else
                         BackingItem = null;
@@ -125,16 +170,26 @@ namespace TaskAppointmentManager.UWP.ViewModels
         public ItemDialogViewModel()
         {
             ItemType = null;
-            BoundDate = DateTime.Now;
+            TaskDeadline = DateTime.Now;
+            AppointmentStart = DateTime.Now;
+            AppointmentEnd = DateTime.Now;
         }
 
         public ItemDialogViewModel(Item item)
         {
             BackingItem = item;
             if (BackingItem is Library.TaskAppointmentManager.Models.Task)
+            {
                 ItemType = "Task";
+                TaskDeadline = (BackingItem as Library.TaskAppointmentManager.Models.Task).Deadline;
+            }
+
             else if (BackingItem is Appointment)
+            {
                 ItemType = "Appointment";
+                AppointmentStart = (BackingItem as Appointment).Start;
+                AppointmentEnd = (BackingItem as Appointment).End;
+            }
         }
 
         public event PropertyChangedEventHandler PropertyChanged;

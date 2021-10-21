@@ -22,9 +22,9 @@ namespace Library.TaskAppointmentManager.Models
                 if (i != Attendees.Count - 1)
                     attendees += ", ";
             }
-            return $"ID: {Id} - APPOINTMENT - NAME: {Name} - " +
-                $"DESCRIPTION: {Description} - START DATE: {Start} - " +
-                $"END DATE: {End} - ATTENDEES: {attendees} - {Id}";
+            return $"APPOINTMENT - NAME: {Name} - " +
+                $"DESCRIPTION: {Description} - PRIORITY: {Priority} - START DATE: {Start.Date:MM-dd-yyyy} - " +
+                $"END DATE: {End.Date:MM-dd-yyyy} - ATTENDEES: {attendees}";
         }
     }
 }
