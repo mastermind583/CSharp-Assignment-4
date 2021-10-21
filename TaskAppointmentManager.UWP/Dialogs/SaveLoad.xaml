@@ -18,7 +18,7 @@
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
-        <TextBox Grid.Row="0" Header="Save File Name" Text="{Binding SaveFile, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"></TextBox>
-        <TextBox Grid.Row="1" Header="Load FIle Name" Text="{Binding LoadFile, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"></TextBox>
+        <TextBox Grid.Row="0" Header="Save File Name" Text="{Binding SaveName, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"></TextBox>
+        <TextBox Grid.Row="1" Header="Load FIle Name" Text="{Binding LoadName, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"></TextBox>
     </Grid>
 </ContentDialog>

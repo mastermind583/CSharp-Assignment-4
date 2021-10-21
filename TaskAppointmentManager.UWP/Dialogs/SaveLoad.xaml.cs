@@ -37,7 +37,7 @@ namespace TaskAppointmentManager.UWP.Dialogs
 
         private void ContentDialog_PrimaryButtonClick(ContentDialog sender, ContentDialogButtonClickEventArgs args)
         {
-            File.WriteAllText($"{path}\\" + SaveName + ".json", JsonConvert.SerializeObject(itemList, settings));
+            File.WriteAllText($"{path}\\SaveData.json", JsonConvert.SerializeObject(itemList, settings));
         }
 
         private void ContentDialog_SecondaryButtonClick(ContentDialog sender, ContentDialogButtonClickEventArgs args)
