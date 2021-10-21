@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices.WindowsRuntime;
+using TaskAppointmentManager.UWP.ViewModels;
 using Windows.Foundation;
 using Windows.Foundation.Collections;
 using Windows.UI.Xaml;
@@ -21,32 +22,22 @@ namespace TaskAppointmentManager.UWP.Dialogs
 {
     public sealed partial class SaveLoad : ContentDialog
     {
-
-        public string SaveName { get; set; }
-        public string LoadName { get; set; }
-        
-        private string path = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData);
-        private JsonSerializerSettings settings = new JsonSerializerSettings { TypeNameHandling = TypeNameHandling.All };
-
         private IList<Item> itemList;
         public SaveLoad(IList<Item> itemList)
         {
             this.InitializeComponent();
+            DataContext = new SaveLoadViewModel();
             this.itemList = itemList;
         }
 
         private void ContentDialog_PrimaryButtonClick(ContentDialog sender, ContentDialogButtonClickEventArgs args)
         {
-            File.WriteAllText($"{path}\\SaveData.json", JsonConvert.SerializeObject(itemList, settings));
+            (DataContext as SaveLoadViewModel).SaveList(itemList);
         }
 
         private void ContentDialog_SecondaryButtonClick(ContentDialog sender, ContentDialogButtonClickEventArgs args)
         {
-            if (File.Exists($"{path}\\" + LoadName + ".json"))
-            {
-                itemList = JsonConvert.DeserializeObject<List<Item>>(File.ReadAllText("SaveData.json"), settings);
-                Console.WriteLine("\nList successfully loaded.");
-            }
+            (DataContext as SaveLoadViewModel).LoadList(itemList);
         }
     }
 }

@@ -41,6 +41,8 @@ namespace TaskAppointmentManager.UWP.ViewModels
 
         //private string persistencePath;
         //private JsonSerializerSettings serializationSettings;
+        private string path = Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData);
+        private JsonSerializerSettings settings = new JsonSerializerSettings { TypeNameHandling = TypeNameHandling.All };
         public MainViewModel()
         {
             Items = new ObservableCollection<Item>();
