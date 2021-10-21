@@ -32,8 +32,7 @@ namespace TaskAppointmentManager.UWP
 
         private async void AddNew_Click(object sender, RoutedEventArgs e)
         {
-            var diag = new ItemDialog((DataContext as MainViewModel).Items);
-            await diag.ShowAsync();
+            await (DataContext as MainViewModel).AddItem();
         }
 
         private void Delete_Click(object sender, RoutedEventArgs e)
@@ -53,8 +52,17 @@ namespace TaskAppointmentManager.UWP
 
         private async void Save_Load_Click(object sender, RoutedEventArgs e)
         {
-            var diag = new SaveLoad((DataContext as MainViewModel).Items);
-            await diag.ShowAsync();
+            await (DataContext as MainViewModel).SaveOrLoadItem();
+        }
+
+        private void Show_Incomplete_Click(object sender, RoutedEventArgs e)
+        {
+            (DataContext as MainViewModel).ShowIncompleteTasks();
+        }
+
+        private void Priority_Sort_Click(object sender, RoutedEventArgs e)
+        {
+            (DataContext as MainViewModel).SortByPriority();
         }
     }
 }

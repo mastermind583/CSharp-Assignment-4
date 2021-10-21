@@ -22,42 +22,77 @@ namespace TaskAppointmentManager.UWP.ViewModels
         {
             get
             {
-                if (string.IsNullOrWhiteSpace(Query))
-                {
-                    return Items;
-                }
-                else
+                //Show all items that contain the query
+                if (!string.IsNullOrWhiteSpace(Query) && show_incomplete == false)
                 {
                     filteredItems = new ObservableCollection<Item>(Items
-                        .Where(s => s.Description.ToUpper().Contains(Query.ToUpper()) ||
-                        s.Name.ToUpper().Contains(Query.ToUpper()) ||
+                        .Where(s => (s.Description != null && s.Description.ToUpper().Contains(Query.ToUpper())) ||
+                        (s.Name != null && s.Name.ToUpper().Contains(Query.ToUpper())) ||
                         ((s is Appointment) && (s as Appointment).Attendees.Any(a => a.ToUpper().Contains(Query.ToUpper()))
                         )).ToList());
+                }
+
+                //Show incomplete tasks when there is no query
+                else if (show_incomplete == true && string.IsNullOrWhiteSpace(Query))
+                {
+                    filteredItems = new ObservableCollection<Item>(Items
+                        .Where(s => (s is Library.TaskAppointmentManager.Models.Task) &&
+                        (s as Library.TaskAppointmentManager.Models.Task).IsCompleted == false).ToList());
+                }
+
+                //Show incomplete tasks that contain the query
+                else if (show_incomplete == true && !string.IsNullOrWhiteSpace(Query))
+                {
+                    filteredItems = new ObservableCollection<Item>(Items
+                        .Where(s => (s is Library.TaskAppointmentManager.Models.Task) &&
+                        (s as Library.TaskAppointmentManager.Models.Task).IsCompleted == false &&
+                        (s.Description != null && s.Description.ToUpper().Contains(Query.ToUpper()) ||
+                        (s.Name != null && s.Name.ToUpper().Contains(Query.ToUpper())))
+                        ).ToList());
+                }
+
+                //If the sort is selected and there is no query, sort Items by priority and return so it doesn't sort again below this
+                else if (priority_sort == true)
+                {
+                    filteredItems = new ObservableCollection<Item>(Items.OrderByDescending(p => p.Priority).ToList());
                     return filteredItems;
                 }
+
+                //If search is clicked with no query, and no buttons are pushed, just return the Items list
+                else
+                    return Items;
+
+                //If the list was filtered and sort is selected, sort filteredItems by priority
+                if (priority_sort == true)
+                    filteredItems = new ObservableCollection<Item>(filteredItems.OrderByDescending(p => p.Priority).ToList());
+
+                return filteredItems;
             }
         }
+
         public string Query { get; set; }
 
-        //private string persistencePath;
-        //private JsonSerializerSettings serializationSettings;
-        private string path = Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData);
-        private JsonSerializerSettings settings = new JsonSerializerSettings { TypeNameHandling = TypeNameHandling.All };
+        private bool show_incomplete = false;
+        private bool priority_sort = false;
+
         public MainViewModel()
         {
             Items = new ObservableCollection<Item>();
-            //persistencePath = Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData);
-
-            //serializationSettings = new JsonSerializerSettings { TypeNameHandling = TypeNameHandling.All };
-            //var myItems = JsonConvert.SerializeObject(this, serializationSettings);
-            //File.WriteAllText($"{persistencePath}\\SaveData.txt", myItems);
-            //var myItemDeserialized = JsonConvert.DeserializeObject<Item>(myItems, serializationSettings);
         }
 
         public event PropertyChangedEventHandler PropertyChanged;
         private void NotifyPropertyChanged([CallerMemberName] string propertyName = "")
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+            //show_incomplete = false;
+            //priority_sort = false;
+    }
+
+        public async System.Threading.Tasks.Task AddItem()
+        {
+            var diag = new ItemDialog(Items);
+            await diag.ShowAsync();
+            NotifyPropertyChanged("FilteredItems");
         }
 
         public void DeleteItem()
@@ -65,6 +100,7 @@ namespace TaskAppointmentManager.UWP.ViewModels
             if (SelectedItem != null)
             {
                 Items.Remove(SelectedItem);
+                NotifyPropertyChanged("FilteredItems");
             }
         }
 
@@ -75,11 +111,39 @@ namespace TaskAppointmentManager.UWP.ViewModels
                 var diag = new ItemDialog(Items, SelectedItem);
                 NotifyPropertyChanged("SelectedItem");
                 await diag.ShowAsync();
+                NotifyPropertyChanged("FilteredItems");
             }
         }
 
-        public void RefreshList()
+        public async System.Threading.Tasks.Task SaveOrLoadItem()
         {
+            var diag = new SaveLoad(Items);
+            await diag.ShowAsync();
+            NotifyPropertyChanged("FilteredItems");
+        }
+
+        public void RefreshList()
+        {           
+            NotifyPropertyChanged("FilteredItems");
+        }
+
+        public void ShowIncompleteTasks()
+        {
+            //change to the opposite value
+            if (show_incomplete == false)
+                show_incomplete = true;
+            else
+                show_incomplete = false;
+            NotifyPropertyChanged("FilteredItems");
+        }
+
+        public void SortByPriority()
+        {
+            //change to the opposite value
+            if (priority_sort == false)
+                priority_sort = true;
+            else
+                priority_sort = false;
             NotifyPropertyChanged("FilteredItems");
         }
     }
