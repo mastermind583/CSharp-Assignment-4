@@ -181,6 +181,7 @@ namespace TaskAppointmentManager.UWP.ViewModels
             {
                 ItemType = "Task";
                 TaskDeadline = (BackingItem as Library.TaskAppointmentManager.Models.Task).Deadline;
+                IsTaskCompleted = (BackingItem as Library.TaskAppointmentManager.Models.Task).IsCompleted;
             }
 
             else if (BackingItem is Appointment)
@@ -188,6 +189,12 @@ namespace TaskAppointmentManager.UWP.ViewModels
                 ItemType = "Appointment";
                 AppointmentStart = (BackingItem as Appointment).Start;
                 AppointmentEnd = (BackingItem as Appointment).End;
+                foreach (var x in (BackingItem as Appointment).Attendees)
+                {
+                    AppointmentAttendees += x;
+                    AppointmentAttendees += ", ";
+
+                }
             }
         }
 

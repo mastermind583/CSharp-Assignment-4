@@ -13,7 +13,7 @@ namespace Library.TaskAppointmentManager.Models
         public override string ToString()
         {
             string s1 = IsCompleted ? "Completed" : "Incomplete";
-            return $"TASK - NAME: {Name} - DESCRIPTION: {Description} - PRIORITY: {Priority} - DEADLINE: {Deadline.Date:MM-dd-yyyy} - {s1}";
+            return $"TASK - {Name} - {Description} - Priority: {Priority} - Deadline: {Deadline.Date:MM-dd-yyyy} - {s1}";
         }
     }
 }
