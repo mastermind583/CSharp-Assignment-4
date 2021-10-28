@@ -84,9 +84,7 @@ namespace TaskAppointmentManager.UWP.ViewModels
         private void NotifyPropertyChanged([CallerMemberName] string propertyName = "")
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
-            //show_incomplete = false;
-            //priority_sort = false;
-    }
+        }
 
         public async System.Threading.Tasks.Task AddItem()
         {

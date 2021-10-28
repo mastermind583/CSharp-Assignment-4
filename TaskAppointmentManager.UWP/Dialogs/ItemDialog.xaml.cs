@@ -31,10 +31,11 @@ namespace TaskAppointmentManager.UWP.Dialogs
         private void ContentDialog_PrimaryButtonClick(ContentDialog sender, ContentDialogButtonClickEventArgs args)
         {
             var itemToEdit = (DataContext as ItemDialogViewModel)?.BackingItem;
-
+            
             //Converts the string of words to list items
             if (itemToEdit is Appointment && (DataContext as ItemDialogViewModel)?.AppointmentAttendees != null)
             {
+                (itemToEdit as Appointment).Attendees.Clear();
                 string[] words = (DataContext as ItemDialogViewModel)?.AppointmentAttendees.Split(',');
                 foreach (var word in words)
                 {
