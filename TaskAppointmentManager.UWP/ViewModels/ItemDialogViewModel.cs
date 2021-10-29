@@ -193,7 +193,6 @@ namespace TaskAppointmentManager.UWP.ViewModels
                 {
                     AppointmentAttendees += x;
                     AppointmentAttendees += ", ";
-
                 }
             }
         }
