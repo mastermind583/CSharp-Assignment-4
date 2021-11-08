@@ -1,5 +1,4 @@
-﻿//test
-using System;
+﻿using System;
 
 namespace Library.TaskAppointmentManager.Models
 {
