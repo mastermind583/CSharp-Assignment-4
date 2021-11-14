@@ -10,9 +10,9 @@ namespace Api.TaskAppointmentManager.Controllers
 {
     [ApiController]
     [Route("[controller]")]
-    public class ToDoController : ControllerBase
+    public class TaskController : ControllerBase
     {
-        private readonly ILogger<ToDoController> _logger;
+        private readonly ILogger<TaskController> _logger;
 
 
         [HttpGet]
