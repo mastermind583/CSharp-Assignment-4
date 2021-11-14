@@ -28,9 +28,9 @@ namespace Api.TaskAppointmentManager.Controllers
         }
 
         [HttpPost("AddOrUpdate")]
-        public Item Receive([FromBody] Task todo)
+        public Item Receive([FromBody] Task task)
         {
-            return todo;
+            return task;
         }
     }
 }
