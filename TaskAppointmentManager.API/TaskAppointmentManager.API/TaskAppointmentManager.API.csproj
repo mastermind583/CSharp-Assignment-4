@@ -8,4 +8,10 @@
     <PackageReference Include="Swashbuckle.AspNetCore" Version="5.6.3" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Reference Include="Library.TaskAppointmentManager.API">
+      <HintPath>..\..\TaskAppointmentManagerDotNet\Library.TaskAppointmentManager.API\bin\Debug\netstandard2.0\Library.TaskAppointmentManager.API.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+
 </Project>
