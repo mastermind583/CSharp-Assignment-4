@@ -1,8 +1,11 @@
-﻿using System;
+﻿using Library.TaskAppointmentManager.Persistence;
+using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
 
 namespace Library.TaskAppointmentManager.Models
 {
+    [JsonConverter(typeof(ItemJsonConverter))]
     public class Appointment : Item
     {
         public Appointment() : base()

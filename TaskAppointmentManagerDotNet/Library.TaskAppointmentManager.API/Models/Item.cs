@@ -1,9 +1,11 @@
-﻿using Newtonsoft.Json;
+﻿using Library.TaskAppointmentManager.Persistence;
+using Newtonsoft.Json;
 using System;
 
 
 namespace Library.TaskAppointmentManager.Models
 {
+    [JsonConverter(typeof(ItemJsonConverter))]
     public class Item
     {
         private static int currentId = 1;
