@@ -30,7 +30,7 @@ namespace TaskAppointmentManager.UWP
         public MainPage()
         {
             this.InitializeComponent();
-            DataContext = new MainViewModel();
+            //DataContext = new MainViewModel();
             var mainViewModel = new MainViewModel();
             var todoString = new WebRequestHandler().Get("http://localhost:44304/Task").Result;
             var todos = JsonConvert.DeserializeObject<List<Task>>(todoString);
