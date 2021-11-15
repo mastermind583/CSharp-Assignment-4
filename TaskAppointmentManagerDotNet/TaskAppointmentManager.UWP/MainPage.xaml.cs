@@ -14,6 +14,9 @@ using Windows.UI.Xaml.Data;
 using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Navigation;
+using Library.TaskAppointmentManager.Communication;
+using Library.TaskAppointmentManager.Models;
+using Newtonsoft.Json;
 
 // The Blank Page item template is documented at https://go.microsoft.com/fwlink/?LinkId=402352&clcid=0x409
 
@@ -28,6 +31,13 @@ namespace TaskAppointmentManager.UWP
         {
             this.InitializeComponent();
             DataContext = new MainViewModel();
+            var mainViewModel = new MainViewModel();
+            var todoString = new WebRequestHandler().Get("http://localhost:14102/ToDo").Result;
+            var todos = JsonConvert.DeserializeObject<List<Task>>(todoString);
+            todos.ForEach(t => mainViewModel.FilteredItems.Add(new Task()));
+            var appointmentsString = new WebRequestHandler().Get("http://localhost:14102/Appointment");
+            var appointments = JsonConvert.DeserializeObject<List<Appointment>>(todoString);
+            appointments.ForEach(a => mainViewModel.FilteredItems.Add(new Appointment()));
         }
 
         private async void AddNew_Click(object sender, RoutedEventArgs e)

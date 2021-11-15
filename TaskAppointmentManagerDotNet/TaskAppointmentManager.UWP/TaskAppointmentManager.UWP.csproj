@@ -181,9 +181,9 @@
     <WCFMetadata Include="Connected Services\" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Library.TaskAppointmentManager.UWP\Library.TaskAppointmentManager.UWP.csproj">
-      <Project>{89b1a07c-3e14-4230-ba60-66274f029ae0}</Project>
-      <Name>Library.TaskAppointmentManager.UWP</Name>
+    <ProjectReference Include="..\Library.TaskAppointmentManager.API\Library.TaskAppointmentManager.API.csproj">
+      <Project>{80B2F464-6424-4AD2-877C-D7BC73A23146}</Project>
+      <Name>Library.TaskAppointmentManager.API</Name>
     </ProjectReference>
   </ItemGroup>
   <PropertyGroup Condition=" '$(VisualStudioVersion)' == '' or '$(VisualStudioVersion)' &lt; '14.0' ">
