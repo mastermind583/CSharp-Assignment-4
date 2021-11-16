@@ -10,6 +10,7 @@ using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
+using Library.TaskAppointmentManager.Communication;
 
 namespace TaskAppointmentManager.UWP.ViewModels
 { 
@@ -93,10 +94,15 @@ namespace TaskAppointmentManager.UWP.ViewModels
             NotifyPropertyChanged("FilteredItems");
         }
 
-        public void DeleteItem()
+        public async void DeleteItem()
         {
             if (SelectedItem != null)
             {
+                if (SelectedItem is Library.TaskAppointmentManager.Models.Task)
+                    await new WebRequestHandler().Post("http://localhost:3916/Task/Delete", SelectedItem);
+                else
+                    await new WebRequestHandler().Post("http://localhost:3916/Appointment/Delete", SelectedItem);
+
                 Items.Remove(SelectedItem);
                 NotifyPropertyChanged("FilteredItems");
             }

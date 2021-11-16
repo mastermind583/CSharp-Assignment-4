@@ -49,5 +49,13 @@ namespace Api.TaskAppointmentManager.Controllers
 
             return task;
         }
+
+        [HttpPost("Delete")]
+        public void Delete([FromBody] Task task)
+        {
+            var item = Database.Tasks.FirstOrDefault(t => t.Id == task.Id);
+            var index = Database.Tasks.IndexOf(item);
+            Database.Tasks.RemoveAt(index);
+        }
     }
 }

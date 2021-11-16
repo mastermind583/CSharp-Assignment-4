@@ -4,6 +4,7 @@ using System;
 using System.Collections.Generic;
 using Windows.UI.Xaml.Controls;
 using Library.TaskAppointmentManager.Communication;
+using Newtonsoft.Json;
 
 // The Content Dialog item template is documented at https://go.microsoft.com/fwlink/?LinkId=234238
 
@@ -45,25 +46,26 @@ namespace TaskAppointmentManager.UWP.Dialogs
                 }
             }
 
-            ////sets the id to currentId++ if it is a new ID
-            //if (itemToEdit.Id == 0)
-            //{
-            //    itemToEdit.Id = 0;
-            //}
-                
+            Item serverItem;
+            if (itemToEdit is Task)
+            {
+                var returnString = await new WebRequestHandler().Post("http://localhost:3916/Task/AddOrUpdate", itemToEdit);
+                serverItem = JsonConvert.DeserializeObject<Task>(returnString);
+            }
+            else
+            {
+                var returnString = await new WebRequestHandler().Post("http://localhost:3916/Appointment/AddOrUpdate", itemToEdit);
+                serverItem = JsonConvert.DeserializeObject<Appointment>(returnString);
+            }
+
             var i = itemList.IndexOf(itemToEdit);
             if (i >= 0)
             {
                 itemList.Remove(itemToEdit);
-                itemList.Insert(i, itemToEdit);
+                itemList.Insert(i, serverItem);
             }
             else
-                itemList.Add(itemToEdit);
-
-            if (itemToEdit is Task)
-                await new WebRequestHandler().Post("http://localhost:3916/Task/AddOrUpdate", itemToEdit);
-            else
-                await new WebRequestHandler().Post("http://localhost:3916/Appointment/AddOrUpdate", itemToEdit);
+                itemList.Add(serverItem);
         }
 
         private void ContentDialog_SecondaryButtonClick(ContentDialog sender, ContentDialogButtonClickEventArgs args)
