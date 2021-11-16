@@ -32,7 +32,9 @@ namespace Api.TaskAppointmentManager.Controllers
             {
                 lock (_lock)
                 {
-                    var lastUsedId = Database.Tasks.Select(a => a.Id).Max();
+                    int lastUsedId = 0;
+                    if (Database.Tasks.Count != 0)
+                        lastUsedId = Database.Tasks.Select(a => a.Id).Max();
                     task.Id = lastUsedId + 1;
                     Database.Tasks.Add(task);
                 }
