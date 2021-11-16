@@ -44,11 +44,11 @@ namespace TaskAppointmentManager.UWP.Dialogs
                 }
             }
 
-            //sets the id to currentId++ if it is a new ID
-            if (itemToEdit.Id == 0)
-            {
-                itemToEdit.Id = 0;
-            }
+            ////sets the id to currentId++ if it is a new ID
+            //if (itemToEdit.Id == 0)
+            //{
+            //    itemToEdit.Id = 0;
+            //}
                 
             var i = itemList.IndexOf(itemToEdit);
             if (i >= 0)

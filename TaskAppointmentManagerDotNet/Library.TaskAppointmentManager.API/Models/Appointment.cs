@@ -25,7 +25,7 @@ namespace Library.TaskAppointmentManager.Models
                 if (i != Attendees.Count - 1)
                     attendees += ", ";
             }
-            return $"APPOINTMENT - {Name} - " +
+            return $"APPOINTMENT {Id} - {Name} - " +
                 $"{Description} - Priority: {Priority} - Start Date: {Start.Date:MM-dd-yyyy} - " +
                 $"End Date: {End.Date:MM-dd-yyyy} - Attendees: {attendees}";
         }
