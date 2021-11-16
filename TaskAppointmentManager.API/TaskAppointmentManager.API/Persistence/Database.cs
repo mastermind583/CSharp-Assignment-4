@@ -9,7 +9,8 @@ namespace Api.TaskAppointmentManager.Persistence
 {
     public static class Database
     {
-        public static ObservableCollection<Library.TaskAppointmentManager.Models.Task> ToDos { get; set; } = new ObservableCollection<Library.TaskAppointmentManager.Models.Task> {
+        public static ObservableCollection<Library.TaskAppointmentManager.Models.Task> Tasks { get; set; } = new ObservableCollection<Library.TaskAppointmentManager.Models.Task> 
+        {
             new Library.TaskAppointmentManager.Models.Task { Name = "First",
                        Description = "First ToDo"},
             new Library.TaskAppointmentManager.Models.Task { Name = "Second",

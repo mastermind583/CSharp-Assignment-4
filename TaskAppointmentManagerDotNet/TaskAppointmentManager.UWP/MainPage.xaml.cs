@@ -32,12 +32,12 @@ namespace TaskAppointmentManager.UWP
             this.InitializeComponent();
             //DataContext = new MainViewModel();
             var mainViewModel = new MainViewModel();
-            var todoString = new WebRequestHandler().Get("http://localhost:44304/Task").Result;
+            var todoString = new WebRequestHandler().Get("http://localhost:3916/Task").Result;
             var todos = JsonConvert.DeserializeObject<List<Task>>(todoString);
-            todos.ForEach(t => mainViewModel.FilteredItems.Add(new Task()));
-            var appointmentsString = new WebRequestHandler().Get("http://localhost:44304/Appointment");
+            todos.ForEach(t => mainViewModel.Items.Add(t));
+            var appointmentsString = new WebRequestHandler().Get("http://localhost:3916/Appointment").Result;
             var appointments = JsonConvert.DeserializeObject<List<Appointment>>(todoString);
-            appointments.ForEach(a => mainViewModel.FilteredItems.Add(new Appointment()));
+            appointments.ForEach(a => mainViewModel.Items.Add(a));
         }
 
         private async void AddNew_Click(object sender, RoutedEventArgs e)
