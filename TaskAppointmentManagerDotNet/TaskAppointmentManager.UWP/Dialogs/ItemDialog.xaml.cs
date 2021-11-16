@@ -3,6 +3,7 @@ using TaskAppointmentManager.UWP.ViewModels;
 using System;
 using System.Collections.Generic;
 using Windows.UI.Xaml.Controls;
+using Library.TaskAppointmentManager.Communication;
 
 // The Content Dialog item template is documented at https://go.microsoft.com/fwlink/?LinkId=234238
 
@@ -28,7 +29,7 @@ namespace TaskAppointmentManager.UWP.Dialogs
             this.itemList = itemList;
         }
 
-        private void ContentDialog_PrimaryButtonClick(ContentDialog sender, ContentDialogButtonClickEventArgs args)
+        private async void ContentDialog_PrimaryButtonClick(ContentDialog sender, ContentDialogButtonClickEventArgs args)
         {
             var itemToEdit = (DataContext as ItemDialogViewModel)?.BackingItem;
             
@@ -58,6 +59,11 @@ namespace TaskAppointmentManager.UWP.Dialogs
             }
             else
                 itemList.Add(itemToEdit);
+
+            if (itemToEdit is Task)
+                await new WebRequestHandler().Post("http://localhost:3916/Task/AddOrUpdate", itemToEdit);
+            else
+                await new WebRequestHandler().Post("http://localhost:3916/Appointment/AddOrUpdate", itemToEdit);
         }
 
         private void ContentDialog_SecondaryButtonClick(ContentDialog sender, ContentDialogButtonClickEventArgs args)

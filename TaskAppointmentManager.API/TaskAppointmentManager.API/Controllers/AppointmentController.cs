@@ -13,7 +13,7 @@ namespace Api.TaskAppointmentManager.Controllers
     [Route("[controller]")]
     public class AppointmentController : ControllerBase
     {
-        private object _lock;
+        private object _lock = new object();
         [HttpGet("GetItem")]
         public Item GetTestItem()
         {
