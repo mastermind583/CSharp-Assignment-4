@@ -5,12 +5,9 @@ using System.Collections.Generic;
 using Windows.UI.Xaml.Controls;
 using Library.TaskAppointmentManager.Communication;
 using Newtonsoft.Json;
+using System.Linq;
 
 // The Content Dialog item template is documented at https://go.microsoft.com/fwlink/?LinkId=234238
-
-//Date time stuff, oct 18th lecture
-//Might have to change item.cs id stuff
-
 namespace TaskAppointmentManager.UWP.Dialogs
 {
     public sealed partial class ItemDialog : ContentDialog
@@ -46,6 +43,7 @@ namespace TaskAppointmentManager.UWP.Dialogs
                 }
             }
 
+            //Set Id in the server, send back the item
             Item serverItem;
             if (itemToEdit is Task)
             {
@@ -58,10 +56,21 @@ namespace TaskAppointmentManager.UWP.Dialogs
                 serverItem = JsonConvert.DeserializeObject<Appointment>(returnString);
             }
 
-            var i = itemList.IndexOf(itemToEdit);
+            //Find the item in itemlist (itemToEdit may be from ServerSearchItems instead of Items)
+            Item item;
+            if (itemToEdit is Appointment)
+            {
+                item = itemList.FirstOrDefault(a => a is Appointment && a.Id == serverItem.Id);
+            }
+            else
+            {
+                item = itemList.FirstOrDefault(a => a is Task && a.Id == serverItem.Id);
+            }
+
+            var i = itemList.IndexOf(item);
             if (i >= 0)
             {
-                itemList.Remove(itemToEdit);
+                itemList.Remove(item);
                 itemList.Insert(i, serverItem);
             }
             else

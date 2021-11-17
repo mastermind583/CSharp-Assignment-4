@@ -192,7 +192,8 @@ namespace TaskAppointmentManager.UWP.ViewModels
                 foreach (var x in (BackingItem as Appointment).Attendees)
                 {
                     AppointmentAttendees += x;
-                    AppointmentAttendees += ", ";
+                    if (x != (BackingItem as Appointment).Attendees.Last())
+                        AppointmentAttendees += ", ";
                 }
             }
         }
