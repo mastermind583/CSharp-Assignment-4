@@ -27,7 +27,6 @@ namespace TaskAppointmentManager.UWP.ViewModels
                 //Show all items that contain the query
                 if (!string.IsNullOrWhiteSpace(Query) && show_incomplete == false)
                 {
-                    //filteredItems = new ObservableCollection<Item>(Items.Where(s => ServerSearchItems.Contains(s)));
                     filteredItems = ServerSearchItems;
                 }
 
