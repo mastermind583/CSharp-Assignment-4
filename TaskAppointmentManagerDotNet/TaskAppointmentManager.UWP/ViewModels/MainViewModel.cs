@@ -103,7 +103,6 @@ namespace TaskAppointmentManager.UWP.ViewModels
                 {
                     var item = Items.FirstOrDefault(a => a is Library.TaskAppointmentManager.Models.Task && a.Id == SelectedItem.Id);
                     bool flag = Items.Remove(item);
-                    Console.WriteLine();
                 }
                
                 RefreshList();
