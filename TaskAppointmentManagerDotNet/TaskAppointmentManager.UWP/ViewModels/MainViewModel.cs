@@ -18,6 +18,7 @@ namespace TaskAppointmentManager.UWP.ViewModels
     {
         public ObservableCollection<Item> Items { get; set; }
         public Item SelectedItem { get; set; }
+        public ObservableCollection<Item> ServerSearchItems { get; set; }
         private ObservableCollection<Item> filteredItems;
         public ObservableCollection<Item> FilteredItems
         {
@@ -26,11 +27,8 @@ namespace TaskAppointmentManager.UWP.ViewModels
                 //Show all items that contain the query
                 if (!string.IsNullOrWhiteSpace(Query) && show_incomplete == false)
                 {
-                    filteredItems = new ObservableCollection<Item>(Items
-                        .Where(s => (s.Description != null && s.Description.ToUpper().Contains(Query.ToUpper())) ||
-                        (s.Name != null && s.Name.ToUpper().Contains(Query.ToUpper())) ||
-                        ((s is Appointment) && (s as Appointment).Attendees.Any(a => a.ToUpper().Contains(Query.ToUpper()))
-                        )).ToList());
+                    //filteredItems = new ObservableCollection<Item>(Items.Where(s => ServerSearchItems.Contains(s)));
+                    filteredItems = ServerSearchItems;
                 }
 
                 //Show incomplete tasks when there is no query
@@ -41,15 +39,12 @@ namespace TaskAppointmentManager.UWP.ViewModels
                         (s as Library.TaskAppointmentManager.Models.Task).IsCompleted == false).ToList());
                 }
 
-                //Show incomplete tasks that contain the query
+                //Show incomplete tasks that contain the query (searches through the filteredItems that were sent back from the server)
                 else if (show_incomplete == true && !string.IsNullOrWhiteSpace(Query))
                 {
-                    filteredItems = new ObservableCollection<Item>(Items
+                    filteredItems = new ObservableCollection<Item>(ServerSearchItems
                         .Where(s => (s is Library.TaskAppointmentManager.Models.Task) &&
-                        (s as Library.TaskAppointmentManager.Models.Task).IsCompleted == false &&
-                        (s.Description != null && s.Description.ToUpper().Contains(Query.ToUpper()) ||
-                        (s.Name != null && s.Name.ToUpper().Contains(Query.ToUpper())))
-                        ).ToList());
+                        (s as Library.TaskAppointmentManager.Models.Task).IsCompleted == false).ToList());
                 }
 
                 //If the sort is selected and there is no query, sort Items by priority and return so it doesn't sort again below this
@@ -91,20 +86,27 @@ namespace TaskAppointmentManager.UWP.ViewModels
         {
             var diag = new ItemDialog(Items);
             await diag.ShowAsync();
-            NotifyPropertyChanged("FilteredItems");
+            RefreshList();
         }
 
         public async void DeleteItem()
         {
             if (SelectedItem != null)
             {
-                if (SelectedItem is Library.TaskAppointmentManager.Models.Task)
-                    await new WebRequestHandler().Post("http://localhost:3916/Task/Delete", SelectedItem);
+                await new WebRequestHandler().Post("http://localhost:3916/Item/Delete", SelectedItem);
+                if (SelectedItem is Appointment)
+                {
+                    var item = Items.FirstOrDefault(a => a is Appointment && a.Id == SelectedItem.Id);
+                    bool flag = Items.Remove(item);
+                }
                 else
-                    await new WebRequestHandler().Post("http://localhost:3916/Appointment/Delete", SelectedItem);
-
-                Items.Remove(SelectedItem);
-                NotifyPropertyChanged("FilteredItems");
+                {
+                    var item = Items.FirstOrDefault(a => a is Library.TaskAppointmentManager.Models.Task && a.Id == SelectedItem.Id);
+                    bool flag = Items.Remove(item);
+                    Console.WriteLine();
+                }
+               
+                RefreshList();
             }
         }
 
@@ -115,7 +117,7 @@ namespace TaskAppointmentManager.UWP.ViewModels
                 var diag = new ItemDialog(Items, SelectedItem);
                 NotifyPropertyChanged("SelectedItem");
                 await diag.ShowAsync();
-                NotifyPropertyChanged("FilteredItems");
+                RefreshList();
             }
         }
 
@@ -126,8 +128,16 @@ namespace TaskAppointmentManager.UWP.ViewModels
             NotifyPropertyChanged("FilteredItems");
         }
 
-        public void RefreshList()
-        {           
+        public async void RefreshList()
+        {
+            //Only do a server-side search if the query is not null
+            if (!string.IsNullOrWhiteSpace(Query))
+            {
+                var returnString = await new WebRequestHandler().Post("http://localhost:3916/Item/Search", Query);
+                ServerSearchItems = JsonConvert.DeserializeObject<ObservableCollection<Item>>(returnString);
+            }
+            else
+                ServerSearchItems = Items;
             NotifyPropertyChanged("FilteredItems");
         }
 
