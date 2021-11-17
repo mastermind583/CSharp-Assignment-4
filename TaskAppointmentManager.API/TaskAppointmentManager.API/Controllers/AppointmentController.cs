@@ -1,6 +1,5 @@
 ﻿using Api.TaskAppointmentManager.Persistence;
 using Library.TaskAppointmentManager.Models;
-using Library.TaskAppointmentManager.Persistence;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using System;
@@ -14,12 +13,6 @@ namespace Api.TaskAppointmentManager.Controllers
     public class AppointmentController : ControllerBase
     {
         private object _lock = new object();
-        [HttpGet("GetItem")]
-        public Item GetTestItem()
-        {
-            return new Appointment();
-        }
-
         [HttpGet]
         public IEnumerable<Appointment> Get()
         {

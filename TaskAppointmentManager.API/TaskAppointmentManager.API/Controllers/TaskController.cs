@@ -13,12 +13,6 @@ namespace Api.TaskAppointmentManager.Controllers
     public class TaskController : ControllerBase
     {
         private object _lock = new object();
-        [HttpGet("GetItem")]
-        public Item GetTestItem()
-        {
-            return new Task();
-        }
-
         [HttpGet]
         public IEnumerable<Task> Get()
         {
